@@ -1,0 +1,69 @@
+import java.util.Arrays;
+
+public class SwapNodesInPairsOuter{
+
+     public static void main(String []args){
+         test(1);
+         test(1, 2);
+         test(1, 2, 3);
+         test(1, 2, 3, 4, 5, 6, 7, 8);
+         test(1, 2, 3, 4, 5, 6, 7, 8, 9);
+     }
+     
+     private static void test(int... inputs){
+         Node head = new Node(0);
+         Node cur = head;
+         for(int i : inputs){
+             cur.next = new Node(i);
+             cur = cur.next;
+         }
+         SwapNodesInPairs swap = new SwapNodesInPairs();
+         System.out.println(swap.swap(head.next));
+     }
+     
+     private static class SwapNodesInPairs{
+         private Node swap(Node head){
+             Node beforeHead = new Node(0);
+             beforeHead.next = head;
+             Node before = beforeHead;
+             Node start = head;
+             
+             while(start!=null && start.next!=null){
+                 Node end = start.next;
+                 Node after = end.next;
+                 
+                 before.next = end;
+                 end.next = start;
+                 start.next = after;
+                 
+                 before = start;
+                 start = after;
+                 if(after!=null){
+                     end = after.next;
+                 }
+                 if(end!=null){
+                     after = end.next;
+                 }
+             }
+             
+             return beforeHead.next;
+         }
+     }
+     
+     static class Node{
+         private int data;
+         private Node next;
+         
+         private Node(int data){
+             this.data = data;
+         }
+         
+         public String toString(){
+             if(next==null){
+                 return ""+data;
+             } else {
+                 return data+", "+next.toString();
+             }
+         }
+     }
+}
