@@ -58,35 +58,16 @@ public class HelloWorld{
             Node c = beforeHead;
             Node c1 = l1;
             Node c2 = l2;
-            while(c1!=null && c2!=null){
-                if(c1.data<c2.data){
-                    c.next = new Node(c1.data);
-                    c = c.next;
-                    c1 = c1.next;
-                } else if(c1.data>c2.data){
-                    c.next = new Node(c2.data);
-                    c = c.next;
+            while(c1!=null || c2!=null){
+                Node smaller = c1;
+                if(c1==null || (c2!=null && c1.data>c2.data) ){
+                    smaller = c2;
                     c2 = c2.next;
                 } else {
-                    c.next = new Node(c1.data);
-                    c = c.next;
                     c1 = c1.next;
-                    c.next = new Node(c2.data);
-                    c = c.next;
-                    c2 = c2.next;
                 }
-            }
-             
-            while(c1!=null){
-                c.next = new Node(c1.data);
+                c.next = new Node(smaller.data);
                 c = c.next;
-                c1 = c1.next;
-            }
-             
-            while(c2!=null){
-                c.next = new Node(c2.data);
-                c = c.next;
-                c2 = c2.next;
             }
             return beforeHead.next;
         }
